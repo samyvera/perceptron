@@ -35,15 +35,30 @@ var spaceData: Array<Array<number>> = [
     [2, 2, 2, 1]
 ];
 
-var problem: Array<number> = [3, 2];
+var problemSize: number = Math.floor(Math.random() * 3) + 1;
+var problem: Array<number> = [];
+for (let i = 0; i < problemSize; i++) {
+    problem.push(Math.floor(Math.random() * 6))
+}
 
-var brain = new NeuralNetwork(2, 1);
-brain.train(planData);
+var selectedData: Array<Array<number>>
+if (problemSize === 1) {
+    selectedData = lineData;
+}
+else if (problemSize === 2) {
+    selectedData = planData;
+}
+else if (problemSize === 3) {
+    selectedData = spaceData;
+}
+
+var brain = new NeuralNetwork(problemSize, 1);
+brain.train(selectedData);
 
 var result = brain.guess(problem);
 
 console.log("Data :");
-console.table(planData);
+console.table(selectedData);
 console.log("");
 console.log("Problem :");
 console.table(problem);
