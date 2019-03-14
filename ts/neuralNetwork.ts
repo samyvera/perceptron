@@ -1,22 +1,14 @@
 class NeuralNetwork {
 
     public inputSize: number;
-    public outputSize: number;
-
     public input: Array<number> = [];
-    public output: Array<number> = [];
 
     public params: Array<number> = [];
 
-    constructor(inputSize: number, outputSize: number) {
+    constructor(inputSize: number) {
         this.inputSize = inputSize;
-        this.outputSize = outputSize;
-
         for (let i = 0; i < this.inputSize; i++) {
             this.input[i] = 0;
-        }
-        for (let i = 0; i < this.outputSize; i++) {
-            this.output[i] = 0;
         }
     }
 

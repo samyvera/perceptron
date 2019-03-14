@@ -1,7 +1,6 @@
 class NeuralNetwork {
-    constructor(inputSize, outputSize) {
+    constructor(inputSize) {
         this.input = [];
-        this.output = [];
         this.params = [];
         this.train = (data) => {
             let w = [];
@@ -43,12 +42,8 @@ class NeuralNetwork {
             return sigmoid(z);
         };
         this.inputSize = inputSize;
-        this.outputSize = outputSize;
         for (let i = 0; i < this.inputSize; i++) {
             this.input[i] = 0;
-        }
-        for (let i = 0; i < this.outputSize; i++) {
-            this.output[i] = 0;
         }
     }
 }
