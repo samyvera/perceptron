@@ -3,24 +3,22 @@
 <head>
     <title>Linear neural network</title>
     <meta charset="utf-8">
-    <link rel="icon" href="img/favicon.ico" />
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="icon" href="favicon.ico" />
 
-    <script src="js/neuralNetwork.js"></script>
+    <script src="js/brain.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/canvas.js"></script>
 </head>
 
 <body>
-    <header>
-        <p id="signature"><a>Samy Vera</a>, 2019</p>
-        <ul class="social-icon">
-            <li><a target="_blank" href="https://www.linkedin.com/in/samy-vera/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-            <li><a target="_blank" href="https://github.com/5amyVera"><i class="fa fa-github" aria-hidden="true"></i></a></li>
-            <li><a target="_blank" href="https://5amyvera.deviantart.com/"><i class="fa fa-deviantart" aria-hidden="true"></i></a></li>
-        </ul>
-    </header>
+    <h1>Probability of getting red ball</h1>
+    <label for="x">x:</label>
+    <input type="number" id="x" name="x" step="0.1" min="0" max="1" value="0.5">
+    <label for="y">y:</label>
+    <input type="number" id="y" name="y" step="0.1" min="0" max="1" value="0.5">
+    <label for="z">z:</label>
+    <input type="number" id="z" name="z" step="0.1" min="0" max="1" value="0.5">
+    <p id="result"></p>
+    <canvas id="canvas"></canvas>
 </body>
 
 </html>

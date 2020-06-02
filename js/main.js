@@ -1,51 +1,54 @@
-var sigmoid = (x) => {
-    return 1 / (1 + Math.exp(-x));
-};
-var lineData = [
-    [0.5, 0],
-    [1, 0],
-    [2, 0],
-    [3, 1],
-    [3.5, 1],
-    [5, 1]
-];
-var planData = [
-    [1, 5, 0],
-    [2, 3, 0],
-    [2, 4.5, 0],
-    [3, 2.5, 0],
-    [3, 1.5, 1],
-    [3.5, 2.5, 1],
-    [4, 1.5, 1],
-    [5.5, 0, 1]
-];
-var spaceData = [
-    [1, 0.5, 3, 0],
-    [0.5, 0, 5, 0],
-    [1, 1.5, 4.5, 0],
-    [1.5, 1, 3.5, 0],
-    [0, 2, 2.5, 0],
-    [2, 2, 3, 0],
-    [3, 3, 2, 0],
-    [4, 3, 1.5, 1],
-    [3, 4.5, 0, 1],
-    [3.5, 5, 2, 1]
-];
-var problemSize = Math.floor(Math.random() * 3) + 1;
-var problem = [];
-for (let i = 0; i < problemSize; i++) {
-    problem.push(Math.floor(Math.random() * 6));
+window.onload = () => {
+    const data = {
+        dimension: 3,
+        points: [
+            { data: [0, 0, 0], solution: 0 },
+            { data: [0, 0, 1], solution: 0 },
+            { data: [0, 1, 0], solution: 0 },
+            { data: [1, 0, 0], solution: 0 },
+            { data: [0, 1, 1], solution: 1 },
+            { data: [1, 0, 1], solution: 1 },
+            { data: [1, 1, 0], solution: 1 },
+            { data: [1, 1, 1], solution: 1 }
+        ]
+    }
+    
+    const brain = new Brain(data.dimension);
+    brain.train(data.points);
+    
+    // vvv DISPLAY vvv
+
+    const canvas = document.getElementById("canvas");
+    canvas.width = 600;
+    canvas.height = 400;
+    const cx = canvas.getContext("2d");
+    cx.scale(400, 400);
+    
+    const draw = (problem, solution) => {
+        cx.fillStyle = "hsl(" + (240 + solution * 120) + ", 100%, 50%)";
+        cx.lineWidth = 0.01;
+        cx.beginPath();
+        cx.arc(
+            0.75 + problem[0] / 2 - problem[1] / 2,
+            0.125 + problem[2] / 2 + problem[0] / 8 + problem[1] / 8,
+            0.05 * (0.5 + (problem[0] / 4 + problem[1] / 4)), 0, 2 * Math.PI
+        );
+        cx.fill();
+        cx.stroke();
+    }
+    
+    setInterval(() => {
+        const x = document.getElementById("x").value;
+        const y = document.getElementById("y").value;
+        const z = document.getElementById("z").value;
+    
+        const problem = [x, y, z];
+        const result = Math.round(brain.solve(problem) * 100) / 100;
+
+        cx.clearRect(0, 0, 100, 100);
+        data.points.forEach(point => draw(point.data, point.solution));
+        draw(problem, result);
+
+        document.getElementById("result").innerHTML = "Probability : " + (result * 100) + "%";
+    }, 1000);
 }
-var selectedData;
-if (problemSize === 1) {
-    selectedData = lineData;
-}
-else if (problemSize === 2) {
-    selectedData = planData;
-}
-else if (problemSize === 3) {
-    selectedData = spaceData;
-}
-var brain = new NeuralNetwork(problemSize);
-brain.train(selectedData);
-var result = Math.round(brain.guess(problem) * 100) / 100;
