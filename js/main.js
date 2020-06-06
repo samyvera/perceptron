@@ -1,20 +1,18 @@
 window.onload = () => {
-    const data = {
-        dimension: 3,
-        points: [
-            { data: [0, 0, 0], solution: 0 },
-            { data: [0, 0, 1], solution: 0 },
-            { data: [0, 1, 0], solution: 0 },
-            { data: [1, 0, 0], solution: 0 },
-            { data: [0, 1, 1], solution: 1 },
-            { data: [1, 0, 1], solution: 1 },
-            { data: [1, 1, 0], solution: 1 },
-            { data: [1, 1, 1], solution: 1 }
-        ]
-    }
+    const length = 3;
+    const data = [
+        { problem: [0, 0, 0], solution: 0 },
+        { problem: [0, 0, 1], solution: 0 },
+        { problem: [0, 1, 0], solution: 0 },
+        { problem: [1, 0, 0], solution: 0 },
+        { problem: [0, 1, 1], solution: 1 },
+        { problem: [1, 0, 1], solution: 1 },
+        { problem: [1, 1, 0], solution: 1 },
+        { problem: [1, 1, 1], solution: 1 }
+    ];
     
-    const brain = new Brain(data.dimension);
-    brain.train(data.points);
+    const perceptron = new Perceptron(length);
+    perceptron.train(data, 0.2, 1e-8);
     
     // vvv DISPLAY vvv
 
@@ -43,12 +41,12 @@ window.onload = () => {
         const z = document.getElementById("z").value;
     
         const problem = [x, y, z];
-        const result = Math.round(brain.solve(problem) * 100) / 100;
+        const prediction = Math.round(perceptron.predict(problem) * 100) / 100;
 
         cx.clearRect(0, 0, 100, 100);
-        data.points.forEach(point => draw(point.data, point.solution));
-        draw(problem, result);
+        data.forEach(elem => draw(elem.problem, elem.solution));
+        draw(problem, prediction);
 
-        document.getElementById("result").innerHTML = "Probability : " + (result * 100) + "%";
+        document.getElementById("result").innerHTML = "Prediction : " + (Math.round(prediction * 100)) + "%";
     }, 1000);
 }
